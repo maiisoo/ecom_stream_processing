@@ -12,8 +12,6 @@ class Purchase:
         self.error = None
 
     def randPurchase(self):
-        # self.user_id = np.random.choice(dao.getUserIDs())
-        # self.product_id = np.random.choice(dao.getProductIDs())
         self.datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         payments = ['Visa', 'MasterCard', 'COD', 'e-wallet']
         self.payment = np.random.choice(payments)
@@ -26,8 +24,8 @@ class Purchase:
     def toMessage(self):
         self.randPurchase()
         return {
-            "user_id": self.user_id,
-            "product_id": self.product_id,
+            "user_id": str(self.user_id),
+            "product_id": str(self.product_id),
             "datetime": str(self.datetime),
             "payment":self.payment,
             "status":self.status,

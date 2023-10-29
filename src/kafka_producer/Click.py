@@ -1,5 +1,5 @@
 import numpy as np
-from src.kafka.dao import dao
+from src.kafka_producer.dao import dao
 from datetime import datetime
 
 
