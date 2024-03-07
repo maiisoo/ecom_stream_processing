@@ -25,3 +25,4 @@ class Click:
             "source": self.source,
             "datetime": str(self.datetime)
         }
+

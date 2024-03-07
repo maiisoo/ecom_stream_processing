@@ -16,9 +16,19 @@ services:
       - zookeeper
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
     ports:
       - "9092:9092"
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
 
   spark-master:
     image: bitnami/spark:3.4.1
@@ -46,8 +56,5 @@ services:
       - SPARK_USER=spark
 
 
-networks:
-  default:
-    # Use a custom driver
-    driver: custom-driver-1
+
 

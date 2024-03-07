@@ -6,7 +6,6 @@ from src.conf import configs
 from src.kafka_producer.Click import Click
 from src.kafka_producer.Purchase import Purchase
 
-
 def json_serializer(data):
     return json.dumps(data).encode("utf-8")
 

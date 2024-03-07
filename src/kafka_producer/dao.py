@@ -8,7 +8,7 @@ class DataAccessObject:
         self.products = pd.read_csv('../../data/products.csv', encoding='latin1')
 
     def getProductIDs(self):
-        return np.array(self.products['id'])
+        return np.array(self.products['Product_ID'])
 
     def getUserIDs(self):
         return np.array(self.users['user_id'])
