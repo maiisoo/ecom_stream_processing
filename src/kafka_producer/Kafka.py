@@ -18,7 +18,7 @@ click_info = []
 while 1 == 1:
     click = Click()
     click_mess = click.toMessage()
-    producer.send("test3", click_mess)
+    producer.send("click", click_mess)
     click_info.append([click.user_id, click.product_id])
     print("Click: ", click_mess, "sent.")
     time.sleep(1)
@@ -26,6 +26,6 @@ while 1 == 1:
         user_product_clicked = random.choice(click_info)
         purchase = Purchase(user_product_clicked[0], user_product_clicked[1])
         purchase_mess = purchase.toMessage()
-        producer.send("test4", purchase_mess)
+        producer.send("purchase", purchase_mess)
         print("Purchase: ", purchase_mess, "sent.")
 

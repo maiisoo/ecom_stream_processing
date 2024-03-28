@@ -1,8 +1,7 @@
 from pyspark.sql import SparkSession, functions
 from pyspark.sql.functions import from_json, col
-from pyspark.sql.types import StructType, StringType, StructField
+from pyspark.sql.types import StructType, StringType, StructField, TimestampType
 from src.conf import configs
-
 
 
 class sparkKafkaIntegration:
@@ -74,15 +73,25 @@ def writeToConsole(df):
 
     query.awaitTermination()
 
-# spark_kafka = SparkKafkaIntergation("192.168.100.102:9092")
 
-# df = df.withColumn("value", df["value"].cast(StringType()))
+def write_to_postgresql(df, epoch_id):
+    df.write \
+        .format('jdbc') \
+        .options(url="URL",
+                 driver='DRIVER',
+                 dbtable='TABLE',
+                 user='USER',
+                 password='PASS',
+                 ) \
+        .mode('append') \
+        .save()
 
-# schema = createSchema(columns=["user_id", "product_id", "source", "datetime"])
 
-# query = df.writeStream \
-#     .outputMode("append") \
-#     .format("console") \
-#     .start()
-#
-# query.awaitTermination()
+def writeToPostgres(df, epoch_id):
+    query = df.writeStream \
+        .trigger(processingTime='30 seconds') \
+        .outputMode('update') \
+        .foreachBatch(write_to_postgresql(df, epoch_id)) \
+        .start()
+
+    query.awaitTermination()
